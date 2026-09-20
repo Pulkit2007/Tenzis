@@ -71,20 +71,20 @@ main {
 }
 
 .title {
-  width: 100%;
+  width: min(454px, calc(100% - 32px));
   font-family: "Karla", sans-serif;
   font-size: 40px;
-  margin-top: 10px;
+  margin: 10px auto 0;
   text-align: center;
   color: #0b2434;
 }
 
 .instructions {
   font-size: 1.2rem;
-  width: 100%;
+  width: min(454px, calc(100% - 32px));
   font-family: "Karla", sans-serif;
   font-weight: 400;
-  margin: 0px;
+  margin: 10px auto;
   text-align: center;
   color: #10405e;
 }
