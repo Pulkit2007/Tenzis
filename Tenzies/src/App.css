@@ -74,14 +74,17 @@ main {
   width: 100%;
   font-family: "Karla", sans-serif;
   font-size: 40px;
-  margin: 0;
+  margin-top: 10px;
   text-align: center;
+  color: #0b2434;
 }
 
 .instructions {
+  font-size: 1.2rem;
   width: 100%;
   font-family: "Karla", sans-serif;
   font-weight: 400;
-  margin-top: 0;
+  margin: 0px;
   text-align: center;
+  color: #10405e;
 }

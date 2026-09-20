@@ -26,7 +26,13 @@ export default function App() {
   }
 
   function rollDice() {
-    setDices(prev => prev.map(dice => !dice.isHeld ? { ...dice, value: Math.floor(Math.random() * 6) + 1 } : dice));
+    if (!gameWon) {
+      setDices(prev => prev.map(dice => !dice.isHeld ? { ...dice, value: Math.floor(Math.random() * 6) + 1 } : dice));
+    }
+    else {
+      setDices(generateDiceObjects())
+    }
+
   }
 
 
@@ -51,7 +57,7 @@ export default function App() {
   return (
 
     <main>
-      {gameWon && <Confetti />}
+      {gameWon && <Confetti width={500} height={500} />}
       <h1 className="title">Tenzies</h1>
       <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
       <div className="die-container">
