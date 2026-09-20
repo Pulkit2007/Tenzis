@@ -12,10 +12,8 @@ body {
 }
 
 div#root {
-  width: 100%;
-  height: 100%;
-  max-width: 500px;
-  max-height: 500px;
+  width: min(100%, 500px);
+  aspect-ratio: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,14 +24,13 @@ main {
   height: 100%;
   background-color: #f5f5f5;
   border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
+  text-align: center;
 }
 
 .die-component {
-  width: 60px;
-  height: 60px;
+  width: 100%;
+  aspect-ratio: 1;
   padding: 0;
   border: 1px solid #d6d9dc;
   border-radius: 12px;
@@ -42,14 +39,49 @@ main {
   align-items: center;
   justify-content: center;
   color: #0b2434;
-  font-family: Inter, sans-serif;
+  font-family: "Karla", sans-serif;
   font-weight: 700;
   font-size: 2rem;
   box-shadow: 0 4px 5px -2px rgba(0, 0, 0, 0.2);
 }
 
 .die-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(454px, calc(100% - 32px));
+  transform: translate(-50%, -50%);
   display: grid;
-  grid-template-columns: repeat(5, 70px);
-  gap: 26px 26px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(8px, 4vw, 26px);
+}
+
+.roll-btn {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 50px;
+  width: 100px;
+  border: none;
+  border-radius: 6px;
+  background-color: #5035ff;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.title {
+  width: 100%;
+  font-family: "Karla", sans-serif;
+  font-size: 40px;
+  margin: 0;
+  text-align: center;
+}
+
+.instructions {
+  width: 100%;
+  font-family: "Karla", sans-serif;
+  font-weight: 400;
+  margin-top: 0;
+  text-align: center;
 }

@@ -1,29 +1,63 @@
 import { useState } from "react";
 import "./App.css"
 import Die from "./components/Die"
+import { nanoid } from "nanoid"
+import Confetti from 'react-confetti'
 
 
 export default function App() {
+  const [dices, setDices] = useState(() => generateDiceObjects())
 
-  const [dices, setDices]= useState(generateDiceNumbers())
+  // conditons: all dices should be held
+  // every dice should have matching value
 
-  function generateDiceNumbers() {
-    return Array.from({ length: 10 }, () =>
-      Math.floor(Math.random() * 6) + 1
+
+  const gameWon = dices.every(dice => dice.isHeld) &&
+    dices.every(die => die.value === dices[0].value);
+  console.log("GAME WON")
+
+
+  function generateDiceObjects() {
+    return Array.from({ length: 10 }, () => ({
+      value: Math.floor(Math.random() * 6) + 1,
+      isHeld: false,
+      id: nanoid(),
+    }));
+  }
+
+  function rollDice() {
+    setDices(prev => prev.map(dice => !dice.isHeld ? { ...dice, value: Math.floor(Math.random() * 6) + 1 } : dice));
+  }
+
+
+  function Hold(id) {
+    setDices((prev) =>
+      prev.map((dice) =>
+        dice.id === id
+          ? { ...dice, isHeld: !dice.isHeld }
+          : dice
+      )
     );
   }
 
-  const numbers = generateDiceNumbers();
-  console.log(numbers);
 
-  const diceArray = dices.map((dice) => <Die key={dice} number={dice} />);
+  const diceArray = dices.map((dice) => (
+    <Die key={dice.id}
+      number={dice.value}
+      hold={() => Hold(dice.id)}
+      isHeld={dice.isHeld} />
+  ));
 
   return (
+
     <main>
+      {gameWon && <Confetti />}
+      <h1 className="title">Tenzies</h1>
+      <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
       <div className="die-container">
         {diceArray}
       </div>
-
+      <button className="roll-btn" onClick={rollDice}>{gameWon ? "New Game" : "Roll"}</button>
     </main>
   )
 }
